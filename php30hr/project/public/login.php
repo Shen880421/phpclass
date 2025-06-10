@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-1 col-md-4 offset-md-4 my-5">
+            <div class="col-12 col-sm-12 col-md-4 offset-md-4 my-5">
                 <h4>產尖電商後台</h4>
                 <div class="card shadow-sm">
                     <div class="card-header text-white bg-primary ">登入系統</div>
