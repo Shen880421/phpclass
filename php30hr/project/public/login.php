@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../inc/db.inc.php";
 //
 //$_SERVER是全域變數, 使用陣列存取不同的伺服器參數
@@ -18,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         ]);
         if ($stmt->rowCount() == 1) {
             $message = "登入成功";
+            
         } else {
             $message = "登入失敗";
         }
