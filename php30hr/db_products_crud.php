@@ -61,66 +61,107 @@ try {
 // 老師
 <?php
 require_once("db.inc.php");//載入指定檔案
-//crud 操作練習
-//insert
-try{
-    echo "<h3>新增資料的情境</h3>";
-    //id, name, price, stock, description
-    $data =[
-        ['name'=>"測試產品1", 'price'=> 368, 'stock'=>50, 'description'=>'測試產品1描述'],
-        ['name'=>"測試產品2", 'price'=> 868, 'stock'=>30, 'description'=>'測試產品2描述']
-    ];
-    $insertCount = 0;
-    foreach($data as $row){
-        $sql = "insert into products (name, price, stock, description) values (?, ?, ?, ?);";
-        $stmt = $pdo->prepare($sql);
-        var_dump($row);
-        $stmt->execute([
-            $row['name'],
-            $row['price'],
-            $row['stock'],
-            $row['description']
-        ]);
-        $insertCount++;
-        echo "已新增產品:ID為 ". $pdo->lastInsertId()."<br>";
-    }
-    echo "<p style='color:green'>成功新增 ".$insertCount."筆產品資料</p>";
-}catch (PDOException $e) {
-    echo $e->getMessage() . "<br>";
-}
-//select
-try{
-    echo "<h3>查詢資料的情境</h3>";
-    //如何拿到資料集資料筆數
-    $sql = "select count(1) as cc from products";
-    $stmt = $pdo->query($sql);
-    $result = $stmt->fetch();
-    //var_dump($result);
-    //分頁設定
-    if(isset($_GET['page']) && $_GET['page'] !=''){
-        $page = $_GET['page'];
-    } else {
-        $page = 0;
-    }
-    //$page = 2;
-    $rows_per_page = 10;
-    $skip_rows = $page * $rows_per_page;
-    $total_pages = ceil($result['cc'] / $rows_per_page);
-    echo "總筆數" . $result['cc']. ", 共" . $total_pages. "頁";
-    echo "<br>";
-    $sql = "select id, name, price, stock, description from products limit {$skip_rows}, {$rows_per_page};";
-    $stmt = $pdo->query($sql);
-    echo $stmt->rowCount();
-    if ($stmt->rowCount() > 0){
-        while($row = $stmt->fetch()){
-            echo "<div>id: {$row['id']}, name: {$row['name']}</div>";
-        }
-    } else {
-        echo "沒有任何資料";
-    }
-}catch (PDOException $e) {
-    echo $e->getMessage() . "<br>";
-}
 ?>
-<a href="unit02_ex.php?page=<?php echo $page-1?>">上一頁</a> 
-<a href="unit02_ex.php?page=<?php echo $page+1?>">下一頁</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+</head>
+<body>
+    <?php
+        //crud 操作練習
+        //insert
+        try{
+            echo "<h3>新增資料的情境</h3>";
+            //id, name, price, stock, description
+            $data =[
+                ['name'=>"測試產品1", 'price'=> 368, 'stock'=>50, 'description'=>'測試產品1描述'],
+                ['name'=>"測試產品2", 'price'=> 868, 'stock'=>30, 'description'=>'測試產品2描述']
+            ];
+            $insertCount = 0;
+            foreach($data as $row){
+                $sql = "insert into products (name, price, stock, description) 
+                values (:name, :price, :stock, :description);";
+                $stmt = $pdo->prepare($sql);
+                var_dump($row);
+                $stmt->execute($row);
+                $insertCount++;
+                echo "已新增產品:ID為 ". $pdo->lastInsertId()."<br>";
+            }
+            echo "<p style='color:green'>成功新增 ".$insertCount."筆產品資料</p>";
+        }catch (PDOException $e) {
+            echo $e->getMessage() . "<br>";
+        }
+        //select
+        try{
+            echo "<h3>查詢資料的情境</h3>";
+            //如何拿到資料集資料總筆數
+            $sql = "select count(1) as cc from products ";
+            $stmt = $pdo->query($sql);
+            $result = $stmt->fetch();
+            //var_dump($result);
+            //分頁設定
+            if(isset($_GET['page']) && $_GET['page'] !=''){
+                $page = $_GET['page'];
+            } else {
+                $page = 0;
+            }
+            //$page = 2;
+            $rows_per_page = 10;//每頁幾筆資料
+            $skip_rows = $page * $rows_per_page; //跳過幾筆
+            $total_pages = ceil($result['cc'] / $rows_per_page);//總頁數
+            echo "總筆數" . $result['cc']. ", 共" . $total_pages. "頁";
+            echo "<br>";
+            $sql = "select id, name, price, stock, description from products limit {$skip_rows}, {$rows_per_page};";
+            $stmt = $pdo->query($sql);
+            echo $stmt->rowCount();
+            if ($stmt->rowCount() > 0){
+                while($row = $stmt->fetch()){
+                    echo "<div>id: {$row['id']}, name: {$row['name']}</div>";
+                }
+            } else {
+                echo "沒有任何資料";
+            }
+        }catch (PDOException $e) {
+            echo $e->getMessage() . "<br>";
+        }
+    ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="unit02_ex.php?page=<?php echo $page-1?>">Previous</a></li>
+    <?php
+        //如果頁碼選擇區設定為只能顯示5頁的情況下, 執行頁碼的生成判斷
+        $pag_per_pages = 5;//頁碼選擇區數量
+        if($total_pages > 5 ){
+            //篩選頁碼呈現
+            $prevPage = $page-1;
+            $nextPage = $page+1;
+            $prevPage2 = $page-2;
+            $nextPage2 = $page+2; 
+            echo "<li class='page-item'><a class='page-link' href='unit02_ex.php?page={$prevPage2}'>{$prevPage2}</a></li>";
+            echo "<li class='page-item'><a class='page-link' href='unit02_ex.php?page={$prevPage}'>{$prevPage}</a></li>";
+            echo "<li class='page-item'><a class='page-link active' href='unit02_ex.php?page={$page}'>{$page}</a></li>";
+            echo "<li class='page-item'><a class='page-link' href='unit02_ex.php?page={$nextPage}'>
+            {$nextPage}</a></li>";
+            echo "<li class='page-item'><a class='page-link' href='unit02_ex.php?page={$nextPage2}'>{$nextPage2}</a></li>";
+        } else {
+            for($i=1 ; $i <= $total_pages; $i++){
+                echo "<li class='page-item'><a class='page-link' href='unit02_ex.php?page={$i}'>{$i}</a></li>";
+                //echo "<a href='unit02_ex.php?page={$i}'>{$i}</a>";
+            }
+        }
+
+        
+        ?>
+    <li class="page-item"><a class="page-link" href="unit02_ex.php?page=<?php echo $page+1?>">Next</a></li>
+  </ul>
+</nav>
+
+</body>
+</html>
+
