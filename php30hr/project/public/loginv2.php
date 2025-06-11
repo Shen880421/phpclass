@@ -57,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             ":acc" => $acc,
             ":pwd" => md5($pwd) //md5 加密使用者輸入的密碼後與資料表中的資料進行比對
         ]);
-        //die("test");
         if ($stmt->rowCount() == 1) {
             $_SESSION['backend_login_flag'] = true;
             $_SESSION['backend_login_acc'] = $acc;
