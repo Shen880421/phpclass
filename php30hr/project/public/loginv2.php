@@ -48,12 +48,10 @@ if (isset($_GET['message']) && $_GET['message'] != "") {
 }
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     //如果這個頁面的呼叫方式是使用http post 的話
-    //var_dump($_POST);
     $acc = $_POST["account"];
     $pwd = $_POST["passwd"];
 
     if (filter_var($acc, FILTER_VALIDATE_EMAIL)) {
-        //echo "合法 Email";
         $stmt = $pdo->prepare("select acc, pwd from admin_users where acc = :acc and pwd = :pwd");
         $result = $stmt->execute([
             ":acc" => $acc,
@@ -61,8 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         ]);
         //die("test");
         if ($stmt->rowCount() == 1) {
-            // $message .= "登入成功!";
-            // $alert_type = "alert-success";
             $_SESSION['backend_login_flag'] = true;
             $_SESSION['backend_login_acc'] = $acc;
             header("location:dashboard.php");

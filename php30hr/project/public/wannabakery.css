@@ -1,0 +1,180 @@
+.just-me-again-down-here-regular {
+    font-family: "Just Me Again Down Here", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.lxgw-wenkai-tc-regular {
+    font-family: "LXGW WenKai TC", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: "LXGW WenKai TC", cursive;
+}
+
+@media (max-width:425px) { /*手機板*/
+    #desktop {
+        display: none;
+    }
+    a.active {
+        background-color: #E0E4E4 !important;
+    }
+    nav.nav_top {
+        background-color: #E0E4E4;
+    }
+    a.div_bgcolor {
+        background-color: #E0E4E4;
+    }
+    div.nav_logoname {
+        display: flex;
+        align-items: center;
+    }
+    div.nav_logoimg {
+        padding: 0px;
+        margin-left: 30px;
+        margin-top: 10px;
+    }
+    img.logo_size {
+        width: 100%;
+        height: auto;
+        border-radius: 30%;
+
+    }
+    div.bakeryname {
+        font-family: "Just Me Again Down Here", cursive;
+        color: #A3B9D2;
+        padding: 0px;
+        margin-left: 10px;
+    }
+    a.btn_customcolor {
+        background-color: #E0E4E4;
+        margin-left: 10px;
+        padding: 4px;
+        font-size: 8px;
+    }
+
+    a.btn_customcolor:hover {
+        background-color: #B6C4CE;
+    }
+
+    div.nav_button {
+        display: flex;
+        justify-content: end;
+        align-self: center;
+    }
+
+    h5.bannerslogan {
+        font-size: 2rem;
+        color: #2F3B50;
+        font-family: "LXGW WenKai TC", cursive;
+        text-shadow: 1px 1px 3px #E0E4E4;
+    }
+
+    div.dess_card {
+        background-color: #DDE6EB;
+        padding-top: 10px;
+    }
+
+    div.recom_section_dessert {
+        justify-content: space-around;
+        margin-left: 0px;
+    }
+    footer.footer {
+        background-color: #E0E4E4;
+        height: 150px;
+    }
+
+    div.placeholder {
+        height: 200px;
+    }
+}
+
+@media (min-width:426px) { /*平板以上*/
+    #mobile {
+        display: none;
+    }
+    a.active {
+        background-color: #E0E4E4 !important;
+    }
+    nav.nav_top {
+        background-color: #E0E4E4;
+    }
+    a.div_bgcolor {
+        background-color: #E0E4E4;
+    }
+
+    footer.footer {
+        background-color: #E0E4E4;
+        height: 150px;
+    }
+
+    div.placeholder {
+        height: 200px;
+    }
+
+    img.logo_size {
+        width: 100%;
+        height: auto;
+        border-radius: 30%;
+
+    }
+
+    div.recom_placeholder {
+        margin-top: 50px;
+    }
+
+    div.bakeryname {
+        font-size: clamp(0.5rem, 2.5vw, 8rem);
+        font-family: "Just Me Again Down Here", cursive;
+        color: #A3B9D2;
+        margin-top: 20px;
+    }
+
+    div.nav_logoname {
+        align-items: center;
+    }
+
+    a.btn_customcolor {
+        background-color: #E0E4E4;
+        font-size: clamp(0.5rem, 2.5vw, 5rem);
+        margin-left: 10px;
+    }
+    button.btn_customcolor {
+        background-color: #DDEBE5;
+    }
+    button.btn_customcolor:hover {
+        background-color: #E7D9D7;
+    }
+    div.mint {
+        background-color: #DDEBE5;
+    }
+
+    a.btn_customcolor:hover {
+        background-color: #B6C4CE;
+    }
+
+    div.nav_button {
+        display: flex;
+        justify-content: end;
+        align-self: center;
+    }
+
+    h5.bannerslogan {
+        font-size:  clamp(2rem, 5vw, 7rem);
+        color: #2F3B50;
+        font-family: "LXGW WenKai TC", cursive;
+        text-shadow: 1px 1px 3px #E0E4E4;
+    }
+
+    div.dess_card {
+        background-color: #DDE6EB;
+        padding-top: 10px;
+    }
+
+    div.recom_section_dessert {
+        justify-content: space-around;
+        margin-left: 0px;
+    }
+}
