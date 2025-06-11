@@ -33,6 +33,19 @@ if ($twig->isDebug()) {
 //$_SERVER是全域變數, 使用陣列存取不同的伺服器參數
 $message = "";
 $alert_type = "";
+if (isset($_GET['message']) && $_GET['message'] != "") {
+    switch ($_GET['message']) {
+        case 'nologin':
+            $message .= "進入後台需登入";
+            $alert_type = "alert-warning";
+            break;
+
+        default:
+            $message .= "";
+            $alert_type = "alert-success";
+            break;
+    }
+}
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     //如果這個頁面的呼叫方式是使用http post 的話
     //var_dump($_POST);
@@ -48,22 +61,21 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         ]);
         //die("test");
         if ($stmt->rowCount() == 1) {
-            $message = "登入成功!";
-            $alert_type = "alert-success";
+            // $message .= "登入成功!";
+            // $alert_type = "alert-success";
             $_SESSION['backend_login_flag'] = true;
             $_SESSION['backend_login_acc'] = $acc;
+            header("location:dashboard.php");
         } else {
-            $message = "登入失敗!";
+            $message .= "登入失敗!";
             $alert_type = "alert-danger";
         }
-        // if ( $acc == "admin@demo.com" &&  $pwd == "test1234"){
-        //     $message = "登入成功";
-        // } 
     } else {
         $message .= "帳號電郵格式錯誤!";
         $alert_type = "alert-warning";
     }
 }
+
 echo $twig->render(
     'login.twig',
     [
