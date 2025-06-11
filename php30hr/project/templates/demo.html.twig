@@ -93,17 +93,7 @@
 	<body>
 		<div class="container">
 			{% block header %}
-				<h1>我的電商後台</h1>
-				<nav>
-					<a href="/">首頁</a>
-					|
-					<a href="/register.php">註冊</a>
-					|
-					<a href="/add_product.php">新增產品</a>
-					{# 新增導覽連結 #}
-					{# 未來會有更多連結 #}
-				</nav>
-				<hr>
+				{% include "partials/navbar.inc.twig" %}
 			{% endblock %}
 
 			{% block content %}
@@ -111,16 +101,15 @@
 			{% endblock %}
 
 			{% block footer %}
-				<hr>
-				<footer>
-					<p>&copy;
-						{{ "now"|date("Y") }}
-						我的電商網站. All rights reserved.</p>
-				</footer>
+				{% include "partials/footer.inc.twig" %}
 			{% endblock %}
 		</div>
 		{{demo}}
 		 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+		{% block myscript %}
+			 <script>
+                console.log('load by main template');
+			</script>
+		{% endblock %}
 	</body>
 </html>
