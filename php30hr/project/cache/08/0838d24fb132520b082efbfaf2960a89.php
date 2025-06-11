@@ -47,101 +47,145 @@ class __TwigTemplate_738a01ea66e8389edbe4f4058a4901fb extends Template
         // line 1
         yield "<!DOCTYPE html>
 <html lang=\"zh-TW\">
-<head>
-    <meta charset=\"UTF-8\">
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-    <title>";
-        // line 6
+\t<head>
+\t\t<meta charset=\"UTF-8\">
+\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+\t\t<title>
+\t\t\t";
+        // line 7
         yield from $this->unwrap()->yieldBlock('title', $context, $blocks);
-        yield "</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4;}
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; background-color: #fff; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .error { color: #dc3545; background-color: #f8d7da; border-color: #f5c6cb; padding: 8px; border-radius: 4px; margin-top: 10px; }
-        .success { color: #28a745; background-color: #d4edda; border-color: #c3e6cb; padding: 8px; border-radius: 4px; margin-top: 10px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
-        input[type=\"text\"], input[type=\"email\"], input[type=\"password\"], input[type=\"number\"], textarea {
-            width: calc(100% - 22px); /* 100% 減去 padding 和 border */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* 讓 padding 不會增加寬度 */
-            font-size: 1em;
-        }
-        textarea {
-            resize: vertical; /* 允許垂直調整大小 */
-            min-height: 80px;
-        }
-        input[type=\"submit\"] {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.2s ease;
-        }
-        input[type=\"submit\"]:hover {
-            background-color: #0056b3;
-        }
-        nav a {
-            margin-right: 15px;
-            text-decoration: none;
-            color: #007bff;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-    </style>
-    ";
-        // line 49
-        yield "    ";
+        // line 9
+        yield "\t\t</title>
+\t\t<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\">
+\t\t<style>
+\t\t\tbody {
+\t\t\t\tfont-family: Arial, sans-serif;
+\t\t\t\tmargin: 20px;
+\t\t\t\tbackground-color: #f4f4f4;
+\t\t\t}
+\t\t\t.container {
+\t\t\t\tmax-width: 800px;
+\t\t\t\tmargin: 20px auto;
+\t\t\t\tpadding: 20px;
+\t\t\t\tbackground-color: #fff;
+\t\t\t\tborder: 1px solid #ddd;
+\t\t\t\tborder-radius: 8px;
+\t\t\t\tbox-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+\t\t\t}
+\t\t\t.error {
+\t\t\t\tcolor: #dc3545;
+\t\t\t\tbackground-color: #f8d7da;
+\t\t\t\tborder-color: #f5c6cb;
+\t\t\t\tpadding: 8px;
+\t\t\t\tborder-radius: 4px;
+\t\t\t\tmargin-top: 10px;
+\t\t\t}
+\t\t\t.success {
+\t\t\t\tcolor: #28a745;
+\t\t\t\tbackground-color: #d4edda;
+\t\t\t\tborder-color: #c3e6cb;
+\t\t\t\tpadding: 8px;
+\t\t\t\tborder-radius: 4px;
+\t\t\t\tmargin-top: 10px;
+\t\t\t}
+\t\t\t.form-group {
+\t\t\t\tmargin-bottom: 15px;
+\t\t\t}
+\t\t\tlabel {
+\t\t\t\tdisplay: block;
+\t\t\t\tmargin-bottom: 5px;
+\t\t\t\tfont-weight: bold;
+\t\t\t\tcolor: #333;
+\t\t\t}
+\t\t\tinput[type=\"text\"],
+\t\t\tinput[type=\"email\"],
+\t\t\tinput[type=\"password\"],
+\t\t\tinput[type=\"number\"],
+\t\t\ttextarea {
+\t\t\t\twidth: calc(100% - 22px); /* 100% 減去 padding 和 border */
+\t\t\t\tpadding: 10px;
+\t\t\t\tborder: 1px solid #ccc;
+\t\t\t\tborder-radius: 4px;
+\t\t\t\tbox-sizing: border-box; /* 讓 padding 不會增加寬度 */
+\t\t\t\tfont-size: 1em;
+\t\t\t}
+\t\t\ttextarea {
+\t\t\t\tresize: vertical; /* 允許垂直調整大小 */
+\t\t\t\tmin-height: 80px;
+\t\t\t}
+\t\t\tinput[type=\"submit\"] {
+\t\t\t\tpadding: 10px 20px;
+\t\t\t\tbackground-color: #007bff;
+\t\t\t\tcolor: white;
+\t\t\t\tborder: none;
+\t\t\t\tborder-radius: 5px;
+\t\t\t\tcursor: pointer;
+\t\t\t\tfont-size: 1em;
+\t\t\t\ttransition: background-color 0.2s ease;
+\t\t\t}
+\t\t\tinput[type=\"submit\"]:hover {
+\t\t\t\tbackground-color: #0056b3;
+\t\t\t}
+\t\t\tnav a {
+\t\t\t\tmargin-right: 15px;
+\t\t\t\ttext-decoration: none;
+\t\t\t\tcolor: #007bff;
+\t\t\t}
+\t\t\tnav a:hover {
+\t\t\t\ttext-decoration: underline;
+\t\t\t}
+\t\t</style>
+\t\t";
+        // line 90
+        yield "\t\t";
         yield from $this->unwrap()->yieldBlock('stylesheets', $context, $blocks);
-        // line 50
-        yield "    ";
+        // line 91
+        yield "\t\t";
         yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
-        // line 51
-        yield "</head>
-<body>
-    <div class=\"container\">
-        ";
-        // line 54
+        // line 92
+        yield "\t</head>
+\t<body>
+\t\t<div class=\"container\">
+\t\t\t";
+        // line 95
         yield from $this->unwrap()->yieldBlock('header', $context, $blocks);
-        // line 64
+        // line 108
         yield "
-        ";
-        // line 65
+\t\t\t";
+        // line 109
         yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
-        // line 68
+        // line 112
         yield "
-        ";
-        // line 69
+\t\t\t";
+        // line 113
         yield from $this->unwrap()->yieldBlock('footer', $context, $blocks);
-        // line 75
-        yield "    </div>
-    ";
-        // line 76
+        // line 121
+        yield "\t\t</div>
+\t\t";
+        // line 122
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(($context["demo"] ?? null), "html", null, true);
         yield "
-</body>
-</html>";
+\t\t <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\"></script>
+
+\t</body>
+</html>
+";
         yield from [];
     }
 
-    // line 6
+    // line 7
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_title(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        yield "我的網站";
+        yield "我的網站
+\t\t\t";
         yield from [];
     }
 
-    // line 49
+    // line 90
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -151,7 +195,7 @@ class __TwigTemplate_738a01ea66e8389edbe4f4058a4901fb extends Template
         yield from [];
     }
 
-    // line 50
+    // line 91
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -161,58 +205,63 @@ class __TwigTemplate_738a01ea66e8389edbe4f4058a4901fb extends Template
         yield from [];
     }
 
-    // line 54
+    // line 95
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_header(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 55
-        yield "            <h1>我的電商後台</h1>
-            <nav>
-                <a href=\"/\">首頁</a> |
-                <a href=\"/register.php\">註冊</a> |
-                <a href=\"/add_product.php\">新增產品</a> ";
-        // line 60
-        yield "                ";
-        // line 61
-        yield "            </nav>
-            <hr>
-        ";
+        // line 96
+        yield "\t\t\t\t<h1>我的電商後台</h1>
+\t\t\t\t<nav>
+\t\t\t\t\t<a href=\"/\">首頁</a>
+\t\t\t\t\t|
+\t\t\t\t\t<a href=\"/register.php\">註冊</a>
+\t\t\t\t\t|
+\t\t\t\t\t<a href=\"/add_product.php\">新增產品</a>
+\t\t\t\t\t";
+        // line 104
+        yield "\t\t\t\t\t";
+        // line 105
+        yield "\t\t\t\t</nav>
+\t\t\t\t<hr>
+\t\t\t";
         yield from [];
     }
 
-    // line 65
+    // line 109
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_content(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 66
-        yield "            ";
-        // line 67
-        yield "        ";
+        // line 110
+        yield "\t\t\t\t";
+        // line 111
+        yield "\t\t\t";
         yield from [];
     }
 
-    // line 69
+    // line 113
     /**
      * @return iterable<null|scalar|\Stringable>
      */
     public function block_footer(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
-        // line 70
-        yield "            <hr>
-            <footer>
-                <p>&copy; ";
-        // line 72
+        // line 114
+        yield "\t\t\t\t<hr>
+\t\t\t\t<footer>
+\t\t\t\t\t<p>&copy;
+\t\t\t\t\t\t";
+        // line 117
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate("now", "Y"), "html", null, true);
-        yield " 我的電商網站. All rights reserved.</p>
-            </footer>
-        ";
+        yield "
+\t\t\t\t\t\t我的電商網站. All rights reserved.</p>
+\t\t\t\t</footer>
+\t\t\t";
         yield from [];
     }
 
@@ -237,88 +286,137 @@ class __TwigTemplate_738a01ea66e8389edbe4f4058a4901fb extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  212 => 72,  208 => 70,  201 => 69,  196 => 67,  194 => 66,  187 => 65,  180 => 61,  178 => 60,  172 => 55,  165 => 54,  155 => 50,  145 => 49,  134 => 6,  126 => 76,  123 => 75,  121 => 69,  118 => 68,  116 => 65,  113 => 64,  111 => 54,  106 => 51,  103 => 50,  100 => 49,  55 => 6,  48 => 1,);
+        return array (  260 => 117,  255 => 114,  248 => 113,  243 => 111,  241 => 110,  234 => 109,  227 => 105,  225 => 104,  216 => 96,  209 => 95,  199 => 91,  189 => 90,  177 => 7,  166 => 122,  163 => 121,  161 => 113,  158 => 112,  156 => 109,  153 => 108,  151 => 95,  146 => 92,  143 => 91,  140 => 90,  58 => 9,  56 => 7,  48 => 1,);
     }
 
     public function getSourceContext(): Source
     {
         return new Source("<!DOCTYPE html>
 <html lang=\"zh-TW\">
-<head>
-    <meta charset=\"UTF-8\">
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-    <title>{% block title %}我的網站{% endblock %}</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4;}
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; background-color: #fff; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .error { color: #dc3545; background-color: #f8d7da; border-color: #f5c6cb; padding: 8px; border-radius: 4px; margin-top: 10px; }
-        .success { color: #28a745; background-color: #d4edda; border-color: #c3e6cb; padding: 8px; border-radius: 4px; margin-top: 10px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
-        input[type=\"text\"], input[type=\"email\"], input[type=\"password\"], input[type=\"number\"], textarea {
-            width: calc(100% - 22px); /* 100% 減去 padding 和 border */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* 讓 padding 不會增加寬度 */
-            font-size: 1em;
-        }
-        textarea {
-            resize: vertical; /* 允許垂直調整大小 */
-            min-height: 80px;
-        }
-        input[type=\"submit\"] {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.2s ease;
-        }
-        input[type=\"submit\"]:hover {
-            background-color: #0056b3;
-        }
-        nav a {
-            margin-right: 15px;
-            text-decoration: none;
-            color: #007bff;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-    </style>
-    {# 您可以在這裡定義更多 CSS 或 JS 區塊 #}
-    {% block stylesheets %}{% endblock %}
-    {% block javascripts %}{% endblock %}
-</head>
-<body>
-    <div class=\"container\">
-        {% block header %}
-            <h1>我的電商後台</h1>
-            <nav>
-                <a href=\"/\">首頁</a> |
-                <a href=\"/register.php\">註冊</a> |
-                <a href=\"/add_product.php\">新增產品</a> {# 新增導覽連結 #}
-                {# 未來會有更多連結 #}
-            </nav>
-            <hr>
-        {% endblock %}
+\t<head>
+\t\t<meta charset=\"UTF-8\">
+\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+\t\t<title>
+\t\t\t{% block title %}我的網站
+\t\t\t{% endblock %}
+\t\t</title>
+\t\t<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\">
+\t\t<style>
+\t\t\tbody {
+\t\t\t\tfont-family: Arial, sans-serif;
+\t\t\t\tmargin: 20px;
+\t\t\t\tbackground-color: #f4f4f4;
+\t\t\t}
+\t\t\t.container {
+\t\t\t\tmax-width: 800px;
+\t\t\t\tmargin: 20px auto;
+\t\t\t\tpadding: 20px;
+\t\t\t\tbackground-color: #fff;
+\t\t\t\tborder: 1px solid #ddd;
+\t\t\t\tborder-radius: 8px;
+\t\t\t\tbox-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+\t\t\t}
+\t\t\t.error {
+\t\t\t\tcolor: #dc3545;
+\t\t\t\tbackground-color: #f8d7da;
+\t\t\t\tborder-color: #f5c6cb;
+\t\t\t\tpadding: 8px;
+\t\t\t\tborder-radius: 4px;
+\t\t\t\tmargin-top: 10px;
+\t\t\t}
+\t\t\t.success {
+\t\t\t\tcolor: #28a745;
+\t\t\t\tbackground-color: #d4edda;
+\t\t\t\tborder-color: #c3e6cb;
+\t\t\t\tpadding: 8px;
+\t\t\t\tborder-radius: 4px;
+\t\t\t\tmargin-top: 10px;
+\t\t\t}
+\t\t\t.form-group {
+\t\t\t\tmargin-bottom: 15px;
+\t\t\t}
+\t\t\tlabel {
+\t\t\t\tdisplay: block;
+\t\t\t\tmargin-bottom: 5px;
+\t\t\t\tfont-weight: bold;
+\t\t\t\tcolor: #333;
+\t\t\t}
+\t\t\tinput[type=\"text\"],
+\t\t\tinput[type=\"email\"],
+\t\t\tinput[type=\"password\"],
+\t\t\tinput[type=\"number\"],
+\t\t\ttextarea {
+\t\t\t\twidth: calc(100% - 22px); /* 100% 減去 padding 和 border */
+\t\t\t\tpadding: 10px;
+\t\t\t\tborder: 1px solid #ccc;
+\t\t\t\tborder-radius: 4px;
+\t\t\t\tbox-sizing: border-box; /* 讓 padding 不會增加寬度 */
+\t\t\t\tfont-size: 1em;
+\t\t\t}
+\t\t\ttextarea {
+\t\t\t\tresize: vertical; /* 允許垂直調整大小 */
+\t\t\t\tmin-height: 80px;
+\t\t\t}
+\t\t\tinput[type=\"submit\"] {
+\t\t\t\tpadding: 10px 20px;
+\t\t\t\tbackground-color: #007bff;
+\t\t\t\tcolor: white;
+\t\t\t\tborder: none;
+\t\t\t\tborder-radius: 5px;
+\t\t\t\tcursor: pointer;
+\t\t\t\tfont-size: 1em;
+\t\t\t\ttransition: background-color 0.2s ease;
+\t\t\t}
+\t\t\tinput[type=\"submit\"]:hover {
+\t\t\t\tbackground-color: #0056b3;
+\t\t\t}
+\t\t\tnav a {
+\t\t\t\tmargin-right: 15px;
+\t\t\t\ttext-decoration: none;
+\t\t\t\tcolor: #007bff;
+\t\t\t}
+\t\t\tnav a:hover {
+\t\t\t\ttext-decoration: underline;
+\t\t\t}
+\t\t</style>
+\t\t{# 您可以在這裡定義更多 CSS 或 JS 區塊 #}
+\t\t{% block stylesheets %}{% endblock %}
+\t\t{% block javascripts %}{% endblock %}
+\t</head>
+\t<body>
+\t\t<div class=\"container\">
+\t\t\t{% block header %}
+\t\t\t\t<h1>我的電商後台</h1>
+\t\t\t\t<nav>
+\t\t\t\t\t<a href=\"/\">首頁</a>
+\t\t\t\t\t|
+\t\t\t\t\t<a href=\"/register.php\">註冊</a>
+\t\t\t\t\t|
+\t\t\t\t\t<a href=\"/add_product.php\">新增產品</a>
+\t\t\t\t\t{# 新增導覽連結 #}
+\t\t\t\t\t{# 未來會有更多連結 #}
+\t\t\t\t</nav>
+\t\t\t\t<hr>
+\t\t\t{% endblock %}
 
-        {% block content %}
-            {# 這裡是每個頁面特有的內容 #}
-        {% endblock %}
+\t\t\t{% block content %}
+\t\t\t\t{# 這裡是每個頁面特有的內容 #}
+\t\t\t{% endblock %}
 
-        {% block footer %}
-            <hr>
-            <footer>
-                <p>&copy; {{ \"now\"|date(\"Y\") }} 我的電商網站. All rights reserved.</p>
-            </footer>
-        {% endblock %}
-    </div>
-    {{demo}}
-</body>
-</html>", "demo.html.twig", "C:\\xampp\\htdocs\\phpclass\\php30hr\\project\\templates\\demo.html.twig");
+\t\t\t{% block footer %}
+\t\t\t\t<hr>
+\t\t\t\t<footer>
+\t\t\t\t\t<p>&copy;
+\t\t\t\t\t\t{{ \"now\"|date(\"Y\") }}
+\t\t\t\t\t\t我的電商網站. All rights reserved.</p>
+\t\t\t\t</footer>
+\t\t\t{% endblock %}
+\t\t</div>
+\t\t{{demo}}
+\t\t <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js\"></script>
+
+\t</body>
+</html>
+", "demo.html.twig", "C:\\xampp\\htdocs\\phpclass\\php30hr\\project\\templates\\demo.html.twig");
     }
 }

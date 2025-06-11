@@ -28,5 +28,5 @@ if ($twig->isDebug()) {
 }
 
 // ... 接下來是 PHP 處理邏輯 ...
-echo $twig->render('demo.html.twig',["demo"=>"下課了"]);
+echo $twig->render('register.html.twig',["demo"=>"下課了"]);
 ?>
