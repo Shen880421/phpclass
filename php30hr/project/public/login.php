@@ -9,35 +9,42 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     //var_dump($_POST);
     $acc = $_POST["account"];
     $pwd = $_POST["passwd"];
-
+    
     if (filter_var($acc, FILTER_VALIDATE_EMAIL)) {
         //echo "合法 Email";
         $stmt = $pdo->prepare("select acc, pwd from admin_users where acc = :acc and pwd = :pwd");
         $result = $stmt->execute([
-            "acc" => $acc,
-            "pwd" => md5($pwd)
+            ":acc" => $acc,
+            ":pwd" => md5($pwd) //md5 加密使用者輸入的密碼後與資料表中的資料進行比對
         ]);
+        //die("test");
         if ($stmt->rowCount() == 1) {
             $message = "登入成功";
-            
+            $_SESSION['backend_login_flag'] = true;
+            $_SESSION['backend_login_acc'] = $acc;
+
+
         } else {
             $message = "登入失敗";
         }
+        // if ( $acc == "admin@demo.com" &&  $pwd == "test1234"){
+        //     $message = "登入成功";
+        // } 
     } else {
         $message .= "帳號電郵格式錯誤";
     }
+
+
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 </head>
-
 <body>
     <div class="container">
         <div class="row">
@@ -46,16 +53,16 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 <div class="card shadow-sm">
                     <div class="card-header text-white bg-primary ">登入系統</div>
                     <div class="card-body">
-                        <?php if ($message != "") { ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <?php echo $message; ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        <?php } ?>
+                        <?php if($message != "") {?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?php echo $message;?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <?php }?>
                         <form method="post" action="">
                             <div class="mb-3">
                                 <label for="foraccount" class="form-label">登入帳號</label>
-                                <input type="text" class="form-control" name="account" id="account" placeholder="請輸入email格式的帳號" required>
+                                <input type="text" class="form-control" name ="account" id="account" placeholder="請輸入email格式的帳號" required>
                             </div>
                             <div class="mb-3">
                                 <label for="forpasswd" class="form-label">登入密碼</label>
@@ -72,5 +79,4 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
-
 </html>
