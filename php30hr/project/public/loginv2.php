@@ -48,19 +48,19 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         ]);
         //die("test");
         if ($stmt->rowCount() == 1) {
-            $message = "登入成功";
+            $message = "登入成功!";
             $alert_type = "alert-success";
             $_SESSION['backend_login_flag'] = true;
             $_SESSION['backend_login_acc'] = $acc;
         } else {
-            $message = "登入失敗";
+            $message = "登入失敗!";
             $alert_type = "alert-danger";
         }
         // if ( $acc == "admin@demo.com" &&  $pwd == "test1234"){
         //     $message = "登入成功";
         // } 
     } else {
-        $message .= "帳號電郵格式錯誤";
+        $message .= "帳號電郵格式錯誤!";
         $alert_type = "alert-warning";
     }
 }
