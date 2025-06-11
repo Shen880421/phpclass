@@ -12,10 +12,7 @@ if (isset($_SESSION['backend_login_flag']) && $_SESSION['backend_login_flag'] ==
     header("location:loginv2.php?message=nologin");
 }
 
+// 組合要傳給模板的資料陣列
+$data['useracc'] = $_SESSION['backend_login_acc'];
 
-
-
-echo $twig->render(
-    'dashboard.twig',
-    []
-);
+echo $twig->render('dashboard.twig',$data);
