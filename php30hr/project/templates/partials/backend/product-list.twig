@@ -62,8 +62,8 @@
 			// console.log(pid);
 			fetch(`bk-product.php?mode=add2cart&pid=${pid}&quan=1`,{
 				method:'POST',
-				headers:{
-					'Content-Type':'application/json',
+				header:{
+					'Content-Type':'application/json'
 				},
 				body:JSON.stringify({"pid":pid})
 			})

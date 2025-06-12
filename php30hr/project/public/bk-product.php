@@ -28,9 +28,9 @@ switch ($mode) {
     case 'savedata':
         $stmt = $pdo->prepare("update products set name=:pname, price=:pprice, stock=:pstock, description=:pdesc, cover=:pcover where id=:pid");
         $filepath = __DIR__ . "/uploads/";
-        $filename = $filepath . time()."-".$_FILES['cover']['name'];
-        $cover = move_uploaded_file($_FILES['cover']['tmp_name'], $filename );
-        $cover = ($cover)?  time()."-".$_FILES['cover']['name']:'';
+        $filename = $filepath . time() . "-" . $_FILES['cover']['name'];
+        $cover = move_uploaded_file($_FILES['cover']['tmp_name'], $filename);
+        $cover = ($cover) ?  time() . "-" . $_FILES['cover']['name'] : '';
         $stmt->execute(
             [
                 ":pname" => $_POST['pname'],
@@ -79,10 +79,26 @@ switch ($mode) {
         $tmplFile = "partials\backend\message.twig";
         break;
     case 'add2cart':
+        if (!isset($_SESSION['cart'])) {
+            //如果cart session沒有被初始化的話
+            $_SESSION['cart'] = [];
+        }
+        $pid = filter_var($_GET['pid']);
+        $quan = filter_var($_GET['quan']);
+        if (!isset($_SESSION['cart']['items'][$pid])) {
+            //如果($pid)產品還沒加入購物車，加入購物車且數量($quan)為1
+            $_SESSION['cart']['items'][$pid] = $quan;
+        } else {
+            //如果($pid)產品已加入購物車，數量($quan)+1
+            $_SESSION['cart']['items'][$pid] += $quan;
+        }
         header("content-type:application/json");
         echo json_encode([
             "status" => 'success',
-            "message" => "產品已放入購物車"
+            "message" => "產品已放入購物車",
+            "pid" => $_GET['pid'],
+            "quan" => $_GET['quan'],
+            "cart" => $_SESSION['cart']
         ]);
         exit();
         break;
@@ -104,7 +120,7 @@ switch ($mode) {
         $stmt->bindParam(":skip",  $skip, PDO::PARAM_INT);
         $stmt->bindParam("rowsperpage", $rowsperpage, PDO::PARAM_INT);
         $stmt->execute();
-        $data['prevpage'] = ($page - 1 > 0) ? $page - 1: 0;
+        $data['prevpage'] = ($page - 1 > 0) ? $page - 1 : 0;
         $data['nextpage'] = $page + 1;
         $data["results"] = [];
         while ($row = $stmt->fetch()) {
