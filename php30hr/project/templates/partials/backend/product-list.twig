@@ -12,6 +12,7 @@
 								<th>產品名稱</th>
 								<th>單價</th>
 								<th>庫存</th>
+								<th>圖片</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -22,6 +23,11 @@
 									<td>{{item.name}}</td>
 									<td>{{item.price}}</td>
 									<td>{{item.stock}}</td>
+									<td>
+										{% if item.cover %}
+											<img src="uploads/{{item.cover}}" height="30">
+										{% endif %}
+									</td>
 									<td>
 										<div class="btn-group" role="group" aria-label="Basic example">
 											<a href="javascript:;" class="btn btn-sm btn-warning">查看</a>

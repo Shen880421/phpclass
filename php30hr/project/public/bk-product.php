@@ -26,13 +26,18 @@ switch ($mode) {
         $tmplFile = "partials/backend/product-edit.twig";
         break;
     case 'savedata':
-        $stmt = $pdo->prepare("update products set name=:pname, price=:pprice, stock=:pstock, description=:pdesc where id=:pid");
+        $stmt = $pdo->prepare("update products set name=:pname, price=:pprice, stock=:pstock, description=:pdesc, cover=:pcover where id=:pid");
+        $filepath = __DIR__ . "/uploads/";
+        $filename = $filepath . time()."-".$_FILES['cover']['name'];
+        $cover = move_uploaded_file($_FILES['cover']['tmp_name'], $filename );
+        $cover = ($cover)? $_FILES['cover']['name']:'';
         $stmt->execute(
             [
                 ":pname" => $_POST['pname'],
                 ":pprice" => $_POST['pprice'],
                 ":pstock" => $_POST['pstock'],
                 ":pdesc" => $_POST['pdesc'],
+                ":pcover" => $cover,
                 ":pid" => $_POST['pid'],
             ]
         );

@@ -5,7 +5,7 @@
     <div class="col-12 col-sm-12 col-md-12">
         <div class="card shadow-sm">
             <div class="card-body">
-                <form method="post" action="bk-product.php?mode=savedata">
+                <form method="post" action="bk-product.php?mode=savedata" enctype="multipart/form-data">
                     <div >
                         <label>流水號</label>
                         <input type="text" class="form-control" name="pid" value="{{result.id}}" readonly>
@@ -25,6 +25,10 @@
                     <div >
                         <label>產品描述</label>
                         <input type="text" class="form-control" name="pdesc" value="{{result.description}}">
+                    </div>
+                    <div >
+                        <label>產品圖片</label>
+                        <input type="file" class="form-control" name="cover" value="{{result.cover}}">
                     </div>
                     <div class="mt-2">
                         <button type="submit" class="btn btn-success">更新資料</button> 
