@@ -30,7 +30,7 @@ switch ($mode) {
         $filepath = __DIR__ . "/uploads/";
         $filename = $filepath . time()."-".$_FILES['cover']['name'];
         $cover = move_uploaded_file($_FILES['cover']['tmp_name'], $filename );
-        $cover = ($cover)? $_FILES['cover']['name']:'';
+        $cover = ($cover)?  time()."-".$_FILES['cover']['name']:'';
         $stmt->execute(
             [
                 ":pname" => $_POST['pname'],
@@ -77,6 +77,14 @@ switch ($mode) {
             $data["alert_type"] = "alert-warning";
         }
         $tmplFile = "partials\backend\message.twig";
+        break;
+    case 'add2cart':
+        header("content-type:application/json");
+        echo json_encode([
+            "status" => 'success',
+            "message" => "產品已放入購物車"
+        ]);
+        exit();
         break;
     default:
         $sql = "select count(1) as cc from products ";
