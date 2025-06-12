@@ -12,7 +12,8 @@ $loader = new FilesystemLoader(__DIR__ . '/../templates');
 
 // Twig 環境設定
 $twig = new Environment($loader, [
-    'cache' => __DIR__ . '/../cache', // 模板緩存路徑，開發時可以設為 false，上線後建議啟用
+    // 'cache' => __DIR__ . '/../cache'
+    'cache' => false, // 模板緩存路徑，開發時可以設為 false，上線後建議啟用
     'debug' => true,                  // 開啟除錯模式，有利於開發
 ]);
 
