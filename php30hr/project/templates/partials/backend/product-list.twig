@@ -61,11 +61,11 @@
 			const pid = this.getAttribute('data-pid');
 			// console.log(pid);
 			fetch(`bk-product.php?mode=add2cart&pid=${pid}&quan=1`,{
-				method:'POST';
-				header:{
-					'Content-Type':'application/json';
+				method:'POST',
+				headers:{
+					'Content-Type':'application/json',
 				},
-				body:JSON.stringfy({"pid":pid})
+				body:JSON.stringify({"pid":pid})
 			})
 			.then(response=>response.json())
 			.then(data =>{
