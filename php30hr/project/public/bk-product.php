@@ -67,7 +67,6 @@ switch ($mode) {
             );
             $data["message"] = "增加產品ID " . $pdo->lastInsertId() . "，成功增加{$stmt->rowCount()}筆資料";
             $data["alert_type"] = "alert-success";
-            
         } catch (PDOException $e) {
             $data["message"] = $e->getMessage();
             $data["alert_type"] = "alert-warning";
@@ -75,8 +74,25 @@ switch ($mode) {
         $tmplFile = "partials\backend\message.twig";
         break;
     default:
-        $stmt = $pdo->prepare("select * from products limit 8");
+        $sql = "select count(1) as cc from products ";
+        $stmt = $pdo->query($sql);
+        $result = $stmt->fetch();
+        //分頁設定
+        if (isset($_GET['page']) && $_GET['page'] != '') {
+            $page = $_GET['page'];
+        } else {
+            $page = 0;
+        }
+        $rowsperpage = 10; //每頁幾筆資料
+        $skip = $page * $rowsperpage; //跳過幾筆
+        $total_pages = ceil($result['cc'] / $rowsperpage); //總頁數
+
+        $stmt = $pdo->prepare("select * from products order by id desc limit :skip, :rowsperpage");
+        $stmt->bindParam(":skip",  $skip, PDO::PARAM_INT);
+        $stmt->bindParam("rowsperpage", $rowsperpage, PDO::PARAM_INT);
         $stmt->execute();
+        $data['prevpage'] = ($page - 1 > 0) ? $page - 1: 0;
+        $data['nextpage'] = $page + 1;
         $data["results"] = [];
         while ($row = $stmt->fetch()) {
             $data["results"][] = $row;
