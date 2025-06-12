@@ -102,6 +102,19 @@ switch ($mode) {
         ]);
         exit();
         break;
+    case 'removeitem':
+        $pid = $_GET['pid']; 
+        unset($_SESSION['cart']['items'][$pid]);
+        $data["message"] = "該品項已移除";
+        $data["alert_type"] = "alert-info";
+        $tmplFile = "partials/backend/message.twig";
+        break;
+    case 'clearcart':
+        unset($_SESSION['cart']);
+        $data["message"] = "購物車已清空";
+        $data["alert_type"] = "alert-info";
+        $tmplFile = "partials\backend\message.twig";
+        break;
     default:
         $sql = "select count(1) as cc from products ";
         $stmt = $pdo->query($sql);
