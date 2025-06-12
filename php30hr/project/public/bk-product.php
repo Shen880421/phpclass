@@ -38,7 +38,7 @@ switch ($mode) {
         );
         $data["message"]="更新產品ID ".$_POST['pid']."，成功更改{$stmt->rowCount()}筆資料";
         $data["alert_type"]="alert-success";
-        $tmplFile = "partials\backend\messge.twig";
+        $tmplFile = "partials\backend\message.twig";
         break;
     default:
         $stmt = $pdo->prepare("select * from products limit 8");
