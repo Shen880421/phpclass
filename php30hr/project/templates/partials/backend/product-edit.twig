@@ -5,10 +5,10 @@
     <div class="col-12 col-sm-12 col-md-12">
         <div class="card shadow-sm">
             <div class="card-body">
-                <form>
+                <form method="post" action="bk-product.php?mode=savedata">
                     <div >
                         <label>流水號</label>
-                        <input type="text" class="form-control" name="pid" value="{{result.id}}">
+                        <input type="text" class="form-control" name="pid" value="{{result.id}}" readonly>
                     </div>
                     <div >
                         <label>產品名稱</label>
