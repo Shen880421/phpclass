@@ -1,0 +1,33 @@
+{% extends 'dashboard.twig' %}
+{% block content %}
+<h4>新增產品</h4>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form method="post" action="bk-product.php?mode=adddata">
+                    <div >
+                        <label>產品名稱</label>
+                        <input type="text" class="form-control" name="pname" value="">
+                    </div>
+                    <div >
+                        <label>產品單價</label>
+                        <input type="text" class="form-control" name="pprice" value="">
+                    </div>
+                    <div >
+                        <label>產品庫存</label>
+                        <input type="text" class="form-control" name="pstock" value="">
+                    </div>
+                    <div >
+                        <label>產品描述</label>
+                        <input type="text" class="form-control" name="pdesc" value="">
+                    </div>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-success">更新資料</button> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

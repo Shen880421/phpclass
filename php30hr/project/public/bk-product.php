@@ -36,8 +36,42 @@ switch ($mode) {
                 ":pid" => $_POST['pid'],
             ]
         );
-        $data["message"]="更新產品ID ".$_POST['pid']."，成功更改{$stmt->rowCount()}筆資料";
-        $data["alert_type"]="alert-success";
+        $data["message"] = "更新產品ID " . $_POST['pid'] . "，成功更改{$stmt->rowCount()}筆資料";
+        $data["alert_type"] = "alert-success";
+        $tmplFile = "partials\backend\message.twig";
+        break;
+    case 'deldata':
+        $stmt = $pdo->prepare("delete from products where id = :pid");
+        $stmt->execute(
+            [
+                ":pid" => $_GET['pid'],
+            ]
+        );
+        $data["message"] = "刪除產品ID " . $_GET['pid'] . "，成功刪除{$stmt->rowCount()}筆資料";
+        $data["alert_type"] = "alert-success";
+        $tmplFile = "partials\backend\message.twig";
+        break;
+    case 'add':
+        $tmplFile = "partials/backend/product-add.twig";
+        break;
+    case 'adddata':
+        try {
+            $stmt = $pdo->prepare("insert into products (`name`, `price`, `stock`, `description`) values (:pname, :pprice, :pstock, :pdesc)");
+            $stmt->execute(
+                [
+                    ":pname" => $_POST['pname'],
+                    ":pprice" => $_POST['pprice'],
+                    ":pstock" => $_POST['pstock'],
+                    ":pdesc" => $_POST['pdesc'],
+                ]
+            );
+            $data["message"] = "增加產品ID " . $pdo->lastInsertId() . "，成功增加{$stmt->rowCount()}筆資料";
+            $data["alert_type"] = "alert-success";
+            
+        } catch (PDOException $e) {
+            $data["message"] = $e->getMessage();
+            $data["alert_type"] = "alert-warning";
+        }
         $tmplFile = "partials\backend\message.twig";
         break;
     default:

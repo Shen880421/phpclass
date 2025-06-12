@@ -26,12 +26,13 @@
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="javascript:;" class="btn btn-sm btn-warning">查看</a>
                                     <a href="bk-product.php?mode=edit&pid={{item.id}}" class="btn btn-sm btn-success">編輯</a>
-                                    <a href="javascript:;" class="btn btn-sm btn-danger">刪除</a>
+                                    <a href="bk-product.php?mode=deldata&pid={{item.id}}" class="btn btn-sm btn-danger">刪除</a>
                                 </div>
                                 </td>
                             </tr>
-                        {% endfor %}
                         
+                        {% endfor %}
+                        <a href="bk-product.php?mode=add" class="btn btn-sm btn-primary">新增產品</a>
                     </tbody>
                 </table>
             </div>
