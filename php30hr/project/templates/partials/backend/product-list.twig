@@ -12,6 +12,7 @@
 								<th>產品名稱</th>
 								<th>單價</th>
 								<th>庫存</th>
+								<th>描述</th>
 								<th>圖片</th>
 								<th>操作</th>
 							</tr>
@@ -23,6 +24,7 @@
 									<td>{{item.name}}</td>
 									<td>{{item.price}}</td>
 									<td>{{item.stock}}</td>
+									<td>{{item.description}}</td>
 									<td>
 										{% if item.cover %}
 											<img src="uploads/{{item.cover}}" height="30">
