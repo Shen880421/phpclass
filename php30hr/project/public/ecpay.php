@@ -23,8 +23,8 @@ $input = [
     'EncryptType'       => 1,
 
     // 請參考 example/Payment/GetCheckoutResponse.php 範例開發
-    'ReturnURL'         => 'https://rnlmb-61-66-147-97.a.free.pinggy.link/phpclass/php30hr/project/public/ecpay.php',
-    'OrderResultURL'    => 'https://rnlmb-61-66-147-97.a.free.pinggy.link/phpclass/php30hr/project/public/ecpay.php',
+    'ReturnURL'         => 'https://rnlmb-61-66-147-97.a.free.pinggy.link/phpclass/php30hr/project/public/ecpay-return.php',
+    'OrderResultURL'    => 'https://rnlmb-61-66-147-97.a.free.pinggy.link/phpclass/php30hr/project/public/ecpay-return.php',
 ];
 $action = 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5';
 
