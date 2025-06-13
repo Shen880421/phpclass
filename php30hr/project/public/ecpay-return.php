@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../inc/db.inc.php'; //載入db 功能
 
 use Ecpay\Sdk\Factories\Factory;
 use Ecpay\Sdk\Response\VerifiedArrayResponse;
@@ -28,3 +29,20 @@ $checkoutResponse = $factory->create(VerifiedArrayResponse::class);
 // ];
 
 var_dump($checkoutResponse->get($_POST));
+$stmt = $pdo->prepare('insert into apilog (`request`,`response`) values (:request, :response);');
+$stmt->execute([
+    ':request' => json_encode($_POST, JSON_UNESCAPED_UNICODE),
+    ':response' => json_encode($checkoutResponse->get($_POST), JSON_UNESCAPED_UNICODE),
+]);
+
+if($_POST['RtnCode'] == '1') {
+    $stmt=$pdo->prepare("update orders set pay_status = '支付完成' where oid = :oid ");
+    $stmt->execute([
+        ':oid' => $_POST['MerchantTradeNo']
+    ]);
+} else {
+    $stmt=$pdo->prepare("update orders set pay_status = '支付失敗' where oid = :oid ");
+    $stmt->execute([
+        ':oid' => $_POST['MerchantTradeNo']
+    ]);
+}

@@ -232,6 +232,34 @@ switch ($mode) {
         $data["alert_type"] = "alert-info";
         $tmplFile = "partials\backend\message.twig";
         break;
+    case 'apiGetCart':
+        //命名一個變數取得$_SESSION['cart']['items'] 方便使用
+        $cartItems = $_SESSION['cart']['items'] ?? [];
+        $data['items'] = [];//要傳進去版型的變數
+        $data["total"] = 0;//要傳進去版型的變數
+        foreach ($cartItems as $pid => $val) {
+            //$pid 會取得購物車中存放的pid 內容 , $val 則是映射到 數量
+            $stmt = $pdo->prepare("select * from products where id = ?");
+            $stmt->execute([$pid]);//執行語法
+            //方法2: 客制化回傳的資料集
+            $result = $stmt->fetch();
+            $data['items'][] = [
+                "id"       => $pid,
+                "price"    => $result['price'],
+                "name"     => $result['name'],
+                "cover"    => $result['cover'],
+                "quan"     => $val,
+                "subtotal" => $result['price'] * $val
+            ];
+            $data["total"] += $result['price'] * $val;//計算購物車總金額
+        }
+        
+        $tmplFile = "partials/cart-live.twig";
+        echo $twig->render($tmplFile, $data);
+        //echo json_encode($data);
+        exit();
+
+        break;
     default:
         $sql = "select count(1) as cc from products ";
         $stmt = $pdo->query($sql);

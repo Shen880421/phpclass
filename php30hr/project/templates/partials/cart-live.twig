@@ -1,0 +1,19 @@
+<table class="table table-striped table-hover">
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{% if item.cover %}
+                    <img src="uploads/{{item.cover}}" height="30">   
+                {% endif %}
+            </td>
+            <td>{{ item.name }}</td>
+            <td class="text-end">{{ item.quan }}</td>
+            <td>
+                <a href="javascript:;" class="btn btn-sm btn-danger" title="移除該品項" onclick="removeItem({{item.id}})"><i class="bi bi-trash"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+        
+    </tbody>
+</table>
+<a href="ecpay.php" class="btn btn-primary d-grid">結帳</a>

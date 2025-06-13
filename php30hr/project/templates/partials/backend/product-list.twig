@@ -55,6 +55,11 @@
 	</div>
 {% endblock %}
 {% block scripts %}
+	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
+	
+	<script id="cart-template" type="text/x-handlebars-template">
+    
+	</script>
 	<script>
 	const add2cartBtns = document.querySelectorAll(".add2cart");
 	add2cartBtns.forEach(button => {
@@ -73,8 +78,27 @@
 			.then(response=>response.json())
 			.then(data =>{
 				console.log(data);
+				updateCartView();//放入購物車時,觸發更新
 			})
 		})
 	});
+
+
+	function updateCartView(){
+    fetch(`bk-product.php?mode=apiGetCart`).
+        then(response=>{
+            return response.text();
+        })
+        .then(html =>{
+            console.log(html);
+            document.getElementById('nav-cart-div-tbl').innerHTML = html;
+        })
+}
+function removeItem(pid){
+    console.log(pid);
+    fetch(`bk-product.php?mode=removeitem&pid=${pid}`);
+    updateCartView();
+}
+updateCartView();
 	</script>
 {% endblock %}
