@@ -133,7 +133,7 @@ switch ($mode) {
         $stmt->bindParam(":skip",  $skip, PDO::PARAM_INT);
         $stmt->bindParam("rowsperpage", $rowsperpage, PDO::PARAM_INT);
         $stmt->execute();
-        $data['prevpage'] = ($page - 1 > 0) ? $page - 1 : 0;
+        $data['prevpage'] = ($page - 1 > 0) ? $page - 1 : 1;
         $data['nextpage'] = $page + 1;
         $data["results"] = [];
         while ($row = $stmt->fetch()) {
