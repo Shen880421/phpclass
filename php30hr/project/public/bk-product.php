@@ -112,6 +112,7 @@ switch ($mode) {
             //如果($pid)產品已加入購物車，數量($quan)+1
             $_SESSION['cart']['items'][$pid] += $quan;
         }
+        //重新渲染購物車畫面
         $cartitems = $_SESSION['cart']['items'] ?? []; //如果有值就用那個值，沒有的話就空陣列
         $data['items'] = []; //要傳進去版型的變數
         $data["total"] = 0;
@@ -146,6 +147,7 @@ switch ($mode) {
             //如果($pid)產品已加入購物車，數量($quan)+1
             $_SESSION['cart']['items'][$pid] -= $quan;
         }
+        //重新渲染購物車畫面
         $cartitems = $_SESSION['cart']['items'] ?? []; //如果有值就用那個值，沒有的話就空陣列
         $data['items'] = []; //要傳進去版型的變數
         $data["total"] = 0;
@@ -173,6 +175,7 @@ switch ($mode) {
     case 'removeitem':
         $pid = $_GET['pid'];
         unset($_SESSION['cart']['items'][$pid]);
+        //重新渲染購物車畫面
         $cartitems = $_SESSION['cart']['items'] ?? []; //如果有值就用那個值，沒有的話就空陣列
         $data['items'] = []; //要傳進去版型的變數
         $data["total"] = 0;
