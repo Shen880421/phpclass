@@ -123,10 +123,10 @@ switch ($mode) {
         if (isset($_GET['page']) && $_GET['page'] != '') {
             $page = $_GET['page'];
         } else {
-            $page = 0;
+            $page = 1;
         }
         $rowsperpage = 10; //每頁幾筆資料
-        $skip = $page * $rowsperpage; //跳過幾筆
+        $skip = ($page - 1) * $rowsperpage; //跳過幾筆
         $total_pages = ceil($result['cc'] / $rowsperpage); //總頁數
 
         $stmt = $pdo->prepare("select * from products order by id desc limit :skip, :rowsperpage");
