@@ -173,9 +173,29 @@ switch ($mode) {
     case 'removeitem':
         $pid = $_GET['pid'];
         unset($_SESSION['cart']['items'][$pid]);
-        $data["message"] = "該品項已移除";
-        $data["alert_type"] = "alert-info";
-        $tmplFile = "partials/backend/message.twig";
+        $cartitems = $_SESSION['cart']['items'] ?? []; //如果有值就用那個值，沒有的話就空陣列
+        $data['items'] = []; //要傳進去版型的變數
+        $data["total"] = 0;
+        foreach ($cartitems as $pid => $val) {
+            $stmt = $pdo->prepare("select * from products where id = ?"); //pid會取得購物車中存放的pid內容，$val則是映射到數量
+            $stmt->execute([$pid]); //執行語法
+            //方法一:只回傳資料表欄位
+            // $data['items'][] = $stmt->fetch(); //取得資料集
+
+            //方法二:客製化回傳的資料集
+            $result =  $stmt->fetch(); //取得資料集
+            $data['items'][] = [
+                "id" => $pid,
+                "price" => $result['price'],
+                "name" => $result['name'],
+                "cover" => $result['cover'],
+                "quan" => $val,
+                "subtotal" => $result['price'] * $val
+            ];
+            $data["total"] += $result['price'] * $val; //計算購物車總金額
+        }
+
+        $tmplFile = "partials/backend/cart-view.twig";
         break;
     case 'viewcart':
         //命名一個變數取得$_SESSION['cart']['items']
