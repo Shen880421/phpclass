@@ -22,3 +22,14 @@ $twig = new Environment($loader, [
 if ($twig->isDebug()) {
     $twig->addExtension(new \Twig\Extension\DebugExtension());
 }
+function debug_print($data = [], $display = true, $die = false)
+{
+    if ($display) {
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
+    }
+    if ($die) {
+        die();
+    };
+}
