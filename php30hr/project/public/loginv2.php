@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../inc/db.inc.php";
+require_once __DIR__ . '/../inc/db.inc.php';
 // my_ecommerce_project/public/register.php
 // 載入 Composer 的自動載入器。
 // 由於這是應用程式的核心依賴，我們使用 require_once。
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         if ($stmt->rowCount() == 1) {
             $_SESSION['backend_login_flag'] = true;
             $_SESSION['backend_login_acc'] = $acc;
-            header("location:dashboard.php");
+            header("location:/project/public/dashboard.php");
         } else {
             $message .= "登入失敗!";
             $alert_type = "alert-danger";

@@ -11,6 +11,7 @@ session_destroy();//清空session
 </head>
 <body>
     帳號已登出<br>
-    <a href="loginv2.php">重新登入</a>
+    <a href="login-v2.php">重新登入</a>
+
 </body>
 </html>

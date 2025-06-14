@@ -1,6 +1,7 @@
 {% extends 'dashboard.twig' %}
 {% block content %}
 	<h4>產品列表</h4>
+	<a href="bk-product.php?mode=add" class="btn btn-success">新增產品</a>
 	<div class="row">
 		<div class="col-12 col-sm-12 col-md-12">
 			<div class="card shadow-sm">
@@ -12,8 +13,6 @@
 								<th>產品名稱</th>
 								<th>單價</th>
 								<th>庫存</th>
-								<th>描述</th>
-								<th>圖片</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -21,83 +20,139 @@
 							{% for item in results %}
 								<tr>
 									<td>{{item.id}}</td>
-									<td>{{item.name}}</td>
-									<td>{{item.price}}</td>
-									<td>{{item.stock}}</td>
-									<td>{{item.description}}</td>
-									<td>
+									<td>{{item.name}}
 										{% if item.cover %}
 											<img src="uploads/{{item.cover}}" height="30">
 										{% endif %}
 									</td>
+									<td>{{item.price}}</td>
+									<td>{{item.stock}}</td>
 									<td>
 										<div class="btn-group" role="group" aria-label="Basic example">
 											<a href="javascript:;" class="btn btn-sm btn-warning">查看</a>
 											<a href="bk-product.php?mode=edit&pid={{item.id}}" class="btn btn-sm btn-success">編輯</a>
 											<a href="bk-product.php?mode=deldata&pid={{item.id}}" class="btn btn-sm btn-danger">刪除</a>
-											<a href="#" class="btn btn-sm btn-dark add2cart" data-pid="{{item.id}}">放入購物車</a>
-											<a href="bk-product.php?mode=removeitem&pid={{item.id}}" class="btn btn-sm btn-danger">移除該品項</a>
+											<a href="javascript;" class="btn btn-sm btn-dark add2cart" data-pid="{{item.id}}">放入購物車</a>
+											<a href="bk-product.php?mode=additem2&pid={{item.id}}&quan=1" class="btn btn-sm btn-secondary" title="增加該品項">
+												<i class="bi bi-plus-lg"></i>
+											</a>
+											<a href="bk-product.php?mode=reduceitem2&pid={{item.id}}" class="btn btn-sm btn-secondary" title="減少該品項">
+												<i class="bi bi-dash-lg"></i>
+											</a>
+											<a href="bk-product.php?mode=removeitem&pid={{item.id}}" class="btn btn-sm btn-danger">
+												<i class="bi bi-trash"></i>
+											</a>
 										</div>
 									</td>
 								</tr>
-
 							{% endfor %}
-							<a href="bk-product.php?mode=add" class="btn btn-sm btn-primary">新增產品</a>
+
 						</tbody>
 					</table>
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<li class="page-item">
+								<a class="page-link" href="bk-product.php?page={{prevpage}}">上一頁</a>
+							</li>
+
+							<li class="page-item">
+								<a class="page-link" href="bk-product.php?page={{nextpage}}">下一頁</a>
+							</li>
+						</ul>
+					</nav>
 				</div>
+
 			</div>
 		</div>
 	</div>
-	<div class="btn-group" role="group" aria-label="Basic example">
-		<a href="bk-product.php?page={{prevpage}}" class="btn btn-sm btn-secondary">上一頁</a>
-		<a href="bk-product.php?page={{nextpage}}" class="btn btn-sm btn-secondary">下一頁</a>
-	</div>
 {% endblock %}
 {% block scripts %}
+
 	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
-	
-	<script id="cart-template" type="text/x-handlebars-template">
-    
-	</script>
+
+	{% include "partials/cart-live-handlebar.twig" %}
+
 	<script>
-	const add2cartBtns = document.querySelectorAll(".add2cart");
-	add2cartBtns.forEach(button => {
-		button.addEventListener('click', function (e) {
-			e.preventDefault();
-			// console.log(this);
-			const pid = this.getAttribute('data-pid');
-			// console.log(pid);
-			fetch(`bk-product.php?mode=add2cart&pid=${pid}&quan=1`,{
-				method:'POST',
-				header:{
-					'Content-Type':'application/json'
-				},
-				body:JSON.stringify({"pid":pid})
-			})
-			.then(response=>response.json())
-			.then(data =>{
-				console.log(data);
-				updateCartView();//放入購物車時,觸發更新
-			})
-		})
-	});
+		// 取得所有套用add2cart class 的對象
+const add2cartBtns = document.querySelectorAll(".add2cart");
+add2cartBtns.forEach(button => { // 輪詢所有對象並監聽該對象的click事件
+button.addEventListener('click', function (e) {
+e.preventDefault();
+// console.log(this);
+const pid = this.getAttribute('data-pid');
+// console.log(pid);
+fetch (`bk-product.php?mode=add2cart&pid=${pid}&quan=1`, {
+method: 'POST',
+header: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify(
+{"pid": pid}
+)
+}).then(response => response.json()).then(data => {
+console.log(data);
+updateCartView(); // 放入購物車時,觸發更新
+})
+})
+})
+const additemBtns = document.querySelectorAll(".additem");
+additemBtns.forEach(button => { // 輪詢所有對象並監聽該對象的click事件
+button.addEventListener('click', function (e) {
+e.preventDefault();
+// console.log(this);
+const pid = this.getAttribute('data-pid');
+// console.log(pid);
+fetch (`bk-product.php?mode=additem&pid=${pid}&quan=1`, {
+method: 'POST',
+header: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify(
+{"pid": pid}
+)
+}).then(response => response.json()).then(data => {
+console.log(data);
+updateCartView(); // 放入購物車時,觸發更新
+})
+})
+})
+const reduceitemBtns = document.querySelectorAll(".reduceitem");
+reduceitemBtns.forEach(button => { // 輪詢所有對象並監聽該對象的click事件
+button.addEventListener('click', function (e) {
+e.preventDefault();
+// console.log(this);
+const pid = this.getAttribute('data-pid');
+// console.log(pid);
+fetch (`bk-product.php?mode=reduceitem&pid=${pid}&quan=1`, {
+method: 'POST',
+header: {
+'Content-Type': 'application/json'
+},
+body: JSON.stringify(
+{"pid": pid}
+)
+}).then(response => response.json()).then(data => {
+console.log(data);
+updateCartView(); // 放入購物車時,觸發更新
+})
+})
+})
 
+function updateCartView() {
+fetch(`bk-product.php?mode=apiGetCart`).then(response => response.json()).then(data => {
+console.log(data);
+// 使用Handlebars模板引擎渲染HTML
+const source = document.getElementById("cart-template").innerHTML;
+const template = Handlebars.compile(source);
+const html = template(data);
+document.getElementById('nav-cart-div-tbl').innerHTML = html;
 
-	function updateCartView(){
-    fetch(`bk-product.php?mode=apiGetCart`).
-        then(response=>{
-            return response.text();
-        })
-        .then(html =>{
-            console.log(html);
-            document.getElementById('nav-cart-div-tbl').innerHTML = html;
-        })
+})
 }
-function removeItem(pid){
-    console.log(pid);
-    fetch(`bk-product.php?mode=removeitem&pid=${pid}`);
-    updateCartView();
+function removeItem(pid) {
+console.log(pid);
+fetch (`bk-product.php?mode=removeitem&pid=${pid}`);
+updateCartView();
 }
 updateCartView();
 	</script>

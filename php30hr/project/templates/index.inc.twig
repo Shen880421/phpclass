@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>産尖電商初階版-產品列表</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-card {
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .nav-cart-div{
+            min-width: 480px;
+            right:0;
+        }
+        .cart-li > div.nav-cart-div {
+            display:none;
+        }
+        .cart-li:hover > div.nav-cart-div {
+            display:block;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- 頁首導覽列 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">産尖電商初階版</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="index.php">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fk-product.php?mode=lists">產品列表</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bk-product.php">後台</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="#" class="btn btn-outline-light me-2  position-relative cart-li">
+                        <i class="bi bi-cart3"></i> 購物車
+                        <span class="badge bg-danger" id="cartcount">{{ cart_count|default(0) }}</span>
+                        <div class="position-absolute nav-cart-div z-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body" id="nav-cart-div-tbl">
+                                    ...
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 網頁主內容 -->
+    <div class="container py-5">
+        
+        {% block content %}
+        {% endblock %}
+    </div>
+    
+    <!-- 頁尾 -->
+    <footer class="bg-dark text-white py-4 mt-5 fixed-bottom">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-0">&copy; {{ "now"|date("Y") }} 産尖電商初階版. 版權所有。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
+
+    {% include "partials/cart-live-handlebar.twig" %}
+    <script>
+        
+
+//取得所有套用add2cart class 的對象
+const add2cartBtns = document.querySelectorAll(".add-to-cart");
+add2cartBtns.forEach(button => { //輪詢所有對象並監聽該對象的click事件
+    button.addEventListener('click', function(e){
+        e.preventDefault();
+        //console.log(this);
+        const pid = this.getAttribute('data-product-id');
+        //console.log(pid);
+        fetch(`bk-product.php?mode=add2cart&pid=${pid}&quan=1`,{
+            method: 'POST',
+            header:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({"pid": pid })
+        })
+        .then(response=>response.json())
+        .then(data =>{
+            console.log(data);
+            updateCartView();//放入購物車時,觸發更新
+        })
+    })
+})
+
+async function updateCartView(){
+    await fetch(`index.php?mode=apiGetCart`)
+        .then(response=>response.json())
+        .then(data =>{
+            //console.log(data);
+            //使用Handlebars模板引擎渲染HTML
+            const source = document.getElementById("cart-template").innerHTML;
+            const template = Handlebars.compile(source);
+            const html = template(data);
+            let total = new Intl.NumberFormat('zh-TW', {
+                    style: 'currency',
+                    currency: 'TWD',
+                    minimumFractionDigits: 0
+                }).format(data.total);
+                console.log(total);
+            document.getElementById('nav-cart-div-tbl').innerHTML = html;
+            document.getElementById('cartcount').innerText = data.itemsCount || 0;
+            document.querySelectorAll('.cart-total-number').forEach(el => { 
+                el.innerText = `NT$ ${total}`;
+            });
+        })
+}
+async function removeItem(pid){
+    //console.log(pid);
+    document.querySelectorAll(`.item-${pid}`).forEach(item => {
+        item.remove();
+    });
+    await fetch(`index.php?mode=removeitem&pid=${pid}`);
+    updateCartView();
+}
+updateCartView();
+    </script>
+</body>
+</html>

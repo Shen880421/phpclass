@@ -55,7 +55,7 @@ switch($mode){
         unset($_SESSION['cart']['items'][$pid]);
         $data["message"] = "該品項已移除";
         $data["alert_type"] = "alert-info";
-        $tmplFile = "message.twig";
+        $tmplFile = "partials/backend/message.twig";
         break;
     case 'viewcart':
         //命名一個變數取得$_SESSION['cart']['items'] 方便使用
@@ -83,20 +83,19 @@ switch($mode){
         
         debug_print($data, false, false);
         
-        $tmplFile = "/cart-frontend-view.twig";
+        $tmplFile = "partials/cart-view.twig";
         break;
     case 'clearcart':
         unset($_SESSION['cart']);
         $data["message"] = "購物車已清空";
         $data["alert_type"] = "alert-info";
-        $tmplFile = "message.twig";
+        $tmplFile = "partials/backend/message.twig";
         break;
     case 'apiGetCart':
         //命名一個變數取得$_SESSION['cart']['items'] 方便使用
         $cartItems = $_SESSION['cart']['items'] ?? [];
         $data['items'] = [];//要傳進去版型的變數
         $data["total"] = 0;//要傳進去版型的變數
-        $data['itemsCount'] = count($cartItems);//購物車中有幾筆資料
         foreach ($cartItems as $pid => $val) {
             //$pid 會取得購物車中存放的pid 內容 , $val 則是映射到 數量
             $stmt = $pdo->prepare("select * from products where id = ?");
@@ -161,13 +160,16 @@ switch($mode){
         $data['items'] = [];//要傳進去版型的變數
         $data["total"] = 0;//要傳進去版型的變數
         //var_dump($cartItems);
-        $data['itemsCount'] = count($cartItems);//購物車中有幾筆資料
         if(count($cartItems)> 0 ){
             foreach ($cartItems as $pid => $val) {
                 //$pid 會取得購物車中存放的pid 內容 , $val 則是映射到 數量
                 $stmt = $pdo->prepare("select * from products where id = ?");
                 $stmt->execute([$pid]);//執行語法
+                //方法一, 只回傳資料表欄位
+                //$data['items'][] = $stmt->fetch(); // 取得資料集
+                //方法2: 客制化回傳的資料集
                 $result = $stmt->fetch();
+                
                 $data['items'][] = [
                     "id"       => $pid,
                     "price"    => $result['price'],
@@ -179,12 +181,12 @@ switch($mode){
                 $data["total"] += $result['price'] * $val;//計算購物車總金額
             }
         }
-        $tmplFile = "product_list.html.twig";
+        $tmplFile = "partials/backend/product-list.twig";
         break;
 }
 
 //組合要傳給模版的資料陣列
-
+$data['useracc'] = $_SESSION['backend_login_acc'];
 
 //呼叫twig渲染html碼
 echo $twig->render($tmplFile, $data);

@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../inc/db.inc.php'; //載入db 功能
+require_once __DIR__ . '/../inc/db.inc.php';//載入db 功能
 
 use Ecpay\Sdk\Factories\Factory;
 use Ecpay\Sdk\Response\VerifiedArrayResponse;
 
-require __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $factory = new Factory([
     'hashKey' => 'pwFHCqoQZGmho4w6',
@@ -29,12 +29,13 @@ $checkoutResponse = $factory->create(VerifiedArrayResponse::class);
 // ];
 
 var_dump($checkoutResponse->get($_POST));
-$stmt = $pdo->prepare('insert into apilog (`request`,`response`) values (:request, :response);');
+$stmt=$pdo->prepare('insert into apilog (`request`, `response`) values (:request, :response);');
 $stmt->execute([
     ':request' => json_encode($_POST, JSON_UNESCAPED_UNICODE),
     ':response' => json_encode($checkoutResponse->get($_POST), JSON_UNESCAPED_UNICODE),
 ]);
-
+//todo: 更新訂單支付狀態
+//RtnCode = 1 判斷為支付完成
 if($_POST['RtnCode'] == '1') {
     $stmt=$pdo->prepare("update orders set pay_status = '支付完成' where oid = :oid ");
     $stmt->execute([

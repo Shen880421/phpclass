@@ -1,0 +1,63 @@
+{% extends "index.inc.twig" %}
+{% block content %}
+<h4>檢視購物車</h4>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadown-sm">
+            <div class="card-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <th>流水號</th>
+                        <th>產品圖</th>
+                        <th>品項</th>
+                        <th>單價</th>
+                        <th>數量</th>
+                        <th>小計</th>
+                        <th>功能</th>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr class="item-{{ item.id }}">
+                            <td>{{ item.id }}</td>
+                            <td>
+                                    <img src="uploads/{{item.cover}}" height="30" onerror="this.onerror=null;this.src='https://placehold.co/30?text=No+Image';">
+                                
+                            </td>
+                            <td>{{ item.name }}</td>
+                            <td class="text-end">{{ item.price | number_format(0, '.', ',')}}</td>
+                            <td class="text-end">{{ item.quan }}</td>
+                            <td class="text-end">{{ item.subtotal | number_format(0, '.', ',')}}</td>
+                            <td>
+                                <a href="javascript:;" class="btn btn-sm btn-danger" title="移除該品項" onclick="removeItem({{item.id}})"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-end">總計:</td>
+                            <td class="text-end cart-total-number">NT$ {{ total | number_format(0, '.', ',') }} </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>結帳資訊</h5>
+                <form method="post" action="ecpay.php" class="d-inline">
+                    <div class="mb-3">
+                        <label for="cname">購買人姓名</label>
+                        <input type="text" class="form-control" id="cname" name="cname" required  placeholder="請輸入購買人姓名" required >
+                    </div>
+                    <div class="mb-3">
+                        <label for="cemail">購買人Email</label>
+                        <input type="email" class="form-control" id="cemail" name="cemail" required placeholder="請輸入購買人Email" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger">結帳</button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% verbatim %}
+<script id="cart-template" type="text/x-handlebars-template">
+    <table class="table table-striped table-hover">
+        <tbody>
+            {{#each items}}
+            <tr>
+                <td>
+                    <img src="uploads/{{cover}}" height="30" onerror="this.onerror=null;this.src='https://placehold.co/30?text=No+Image';">
+                </td>
+                <td>{{name}}</td>
+                <td class="text-end">{{quan}} {{price}}</td>
+                <td>
+                    <a href="javascript:;" class="btn btn-sm btn-danger" title="移除該品項" onclick="removeItem({{id}})"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <a href="index.php?mode=viewcart" class="btn btn-primary d-grid">檢視購物車</a>
+</script>
+{% endverbatim %}

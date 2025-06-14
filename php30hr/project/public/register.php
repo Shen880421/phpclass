@@ -1,4 +1,9 @@
 <?php
+// my_ecommerce_project/public/register.php
+// 載入 Composer 的自動載入器。
+// 由於這是應用程式的核心依賴，我們使用 require_once。
+require_once __DIR__ . '/../vendor/autoload.php';
+
 // 使用 use 關鍵字引入 Twig 相關的類別
 // 這樣我們就可以直接使用 FilesystemLoader 和 Environment，而不是寫完整的 \Twig\Loader\FilesystemLoader
 use Twig\Loader\FilesystemLoader;
@@ -23,13 +28,12 @@ if ($twig->isDebug()) {
     $twig->addExtension(new \Twig\Extension\DebugExtension());
 }
 
-function debug_print($data=[], $display=true, $die = false){
-    if($display){
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-    }
-    if($die){
-        die();
-    }
-}
+// ... 接下來是 PHP 處理邏輯 ...
+//echo $twig->render('demo.html.twig',["demo"=>"下課了"]);
+echo $twig->render('register.twig.html', 
+    [
+        "title"=>"註冊會員資料表單",
+        "demo_str"=>"這是個Twig Partial 範例"
+    ]
+);
+?>

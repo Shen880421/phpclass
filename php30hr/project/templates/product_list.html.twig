@@ -1,0 +1,38 @@
+{% extends "index.inc.twig" %}
+{% block content %}
+<!-- 頁面標題 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="text-start">商品列表</h4>
+            </div>
+        </div>
+        
+        <!-- 產品列表 -->
+        <div class="row g-4">
+            {% for product in products|default([
+                {'id': 1, 'name': '商品一', 'price': 1200, 'image': 'https://via.placeholder.com/300', 'description': '這是商品一的簡短描述。'},
+                {'id': 2, 'name': '商品二', 'price': 980, 'image': 'https://via.placeholder.com/300', 'description': '這是商品二的簡短描述。'},
+                {'id': 3, 'name': '商品三', 'price': 1500, 'image': 'https://via.placeholder.com/300', 'description': '這是商品三的簡短描述。'},
+                {'id': 4, 'name': '商品四', 'price': 2200, 'image': 'https://via.placeholder.com/300', 'description': '這是商品四的簡短描述。'},
+                {'id': 5, 'name': '商品五', 'price': 990, 'image': 'https://via.placeholder.com/300', 'description': '這是商品五的簡短描述。'},
+                {'id': 6, 'name': '商品六', 'price': 3500, 'image': 'https://via.placeholder.com/300', 'description': '這是商品六的簡短描述。'}
+            ]) %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 product-card">
+                        <img src="{{ product.cover is defined and product.cover is not empty ? product.cover : 'https://placehold.co/300' }}" class="card-img-top" alt="{{ product.name }}"
+                            onerror="this.onerror=null;this.src='https://placehold.co/300?text=No+Image';">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-danger fw-bold">NT$ {{ product.price }}</span>
+                                <button class="btn btn-primary add-to-cart" data-product-id="{{ product.id }}">
+                                    <i class="bi bi-cart-plus"></i> 加入購物車
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+{% endblock %}

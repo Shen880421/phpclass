@@ -1,0 +1,22 @@
+{# 繼承 tmpl.twig.html #}
+{% extends 'tmpl.twig.html' %}
+{# 填充 content 區塊 #}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-4 offset-md-4">
+            <div class="card">
+                <div class="card-header">註冊會員</div>
+                <div class="card-body">
+                    ...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block myscript %}
+<script>
+    console.log("load from register form page!!!");
+</script>
+{% endblock %}
